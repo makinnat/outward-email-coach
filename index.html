@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Outward Sales Email Coach â Write Emails People Actually Want to Read</title>
+  <title>Outward Sales Email Coach — Write Emails People Actually Want to Read</title>
   <meta name="description" content="Free sales email grader and live writing coach. Get instant feedback on your prospecting emails based on the outward mindset approach." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -32,9 +32,9 @@
       min-height: 100vh;
     }
 
-    /* âââââââââââââââââââââââââââââââââââââââ
+    /* ═══════════════════════════════════════
        TWO-COLUMN LAYOUT
-    âââââââââââââââââââââââââââââââââââââââ */
+    ═══════════════════════════════════════ */
     .page {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -46,9 +46,9 @@
       align-items: start;
     }
 
-    /* âââââââââââââââââââââââââââââââââââââââ
-       LEFT COLUMN â HERO TEXT
-    âââââââââââââââââââââââââââââââââââââââ */
+    /* ═══════════════════════════════════════
+       LEFT COLUMN — HERO TEXT
+    ═══════════════════════════════════════ */
     .hero {
       padding-top: 48px;
       position: sticky;
@@ -92,9 +92,9 @@
       line-height: 1.5;
     }
 
-    /* âââââââââââââââââââââââââââââââââââââââ
-       RIGHT COLUMN â TOOL
-    âââââââââââââââââââââââââââââââââââââââ */
+    /* ═══════════════════════════════════════
+       RIGHT COLUMN — TOOL
+    ═══════════════════════════════════════ */
     .tool-wrapper {
       background: #f4f4f6;
       border-radius: 16px;
@@ -278,9 +278,9 @@
     .tip-text { font-size: 11.5px; color: #555; margin-top: 2px; }
     .write-placeholder { text-align: center; padding: 20px 16px; color: #b0b0bc; font-size: 12px; line-height: 1.5; }
 
-    /* âââââââââââââââââââââââââââââââââââââââ
-       RESPONSIVE â stack on mobile
-    âââââââââââââââââââââââââââââââââââââââ */
+    /* ═══════════════════════════════════════
+       RESPONSIVE — stack on mobile
+    ═══════════════════════════════════════ */
     @media (max-width: 860px) {
       .page {
         grid-template-columns: 1fr;
@@ -302,17 +302,17 @@
 <body>
 
   <div class="page">
-    <!-- âââââââââââââââ LEFT: HERO TEXT âââââââââââââââ -->
+    <!-- ═══════════════ LEFT: HERO TEXT ═══════════════ -->
     <div class="hero">
-      <div class="hero-badge">Free tool â no signup required</div>
+      <div class="hero-badge">Free tool — no signup required</div>
       <h1>Write emails people<br><em>actually want to read</em></h1>
       <p class="hero-sub">
-        Most sales emails get deleted in seconds because they're about the sender, not the reader. This tool coaches you to write emails that center on the person you're reaching out to â their challenges, their goals, their world.
+        Most sales emails get deleted in seconds because they're about the sender, not the reader. This tool coaches you to write emails that center on the person you're reaching out to — their challenges, their goals, their world.
       </p>
       <p class="hero-footer">No data is stored. Everything runs in your browser.</p>
     </div>
 
-    <!-- âââââââââââââââ RIGHT: TOOL âââââââââââââââ -->
+    <!-- ═══════════════ RIGHT: TOOL ═══════════════ -->
     <div class="tool-wrapper">
       <div class="tool-header">
         <h2>Outward Sales Email Coach</h2>
@@ -397,7 +397,7 @@
     </div>
   </div>
 
-  <!-- âââââââââââââââ SCRIPTS âââââââââââââââ -->
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
   <script src="grader.js"></script>
   <script>
     function esc(s) {
@@ -406,7 +406,7 @@
       return d.innerHTML;
     }
 
-    // ââ Tab switching ââ
+    // ── Tab switching ──
     document.querySelectorAll('.tab-btn').forEach(function(btn) {
       btn.addEventListener('click', function() {
         var target = btn.getAttribute('data-tab');
@@ -417,7 +417,7 @@
       });
     });
 
-    // ââ Live coaching ââ
+    // ── Live coaching ──
     var liveCoachTimer = null;
     document.getElementById('writeArea').addEventListener('input', function() {
       clearTimeout(liveCoachTimer);
@@ -461,7 +461,7 @@
       }
     }
 
-    // ââ Grade It bridge ââ
+    // ── Grade It bridge ──
     document.getElementById('sendToGradeBtn').addEventListener('click', function() {
       var text = document.getElementById('writeArea').value.trim();
       if (!text || text.length < 15) {
@@ -479,7 +479,7 @@
       renderResults(lastResults);
     });
 
-    // ââ Grade button ââ
+    // ── Grade button ──
     document.getElementById('gradeBtn').addEventListener('click', function() {
       var text = document.getElementById('emailInput').value.trim();
       if (!text || text.length < 15) {
@@ -492,7 +492,7 @@
       renderResults(lastResults);
     });
 
-    // ââ Chat ââ
+    // ── Chat ──
     document.getElementById('chatSendBtn').addEventListener('click', sendChat);
     document.getElementById('chatInput').addEventListener('keydown', function(e) {
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
@@ -568,7 +568,7 @@
       addChatMsg(generateQuickResponse(q), 'coach');
     }
 
-    // ââ Render results ââ
+    // ── Render results ──
     function renderResults(r) {
       var circle = document.getElementById('gradeCircle');
       circle.textContent = r.grade;
@@ -633,7 +633,7 @@
       container.scrollTop = container.scrollHeight;
     }
 
-    // ââ Reset ââ
+    // ── Reset ──
     document.getElementById('resetBtn').addEventListener('click', function() {
       document.getElementById('emailInput').value = '';
       document.getElementById('inputCard').style.display = 'block';
