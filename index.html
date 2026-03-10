@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Outward Sales Email Coach — Write Emails People Actually Want to Read</title>
+  <meta name="description" content="Free sales email grader and live writing coach. Get instant feedback on your prospecting emails based on the outward mindset approach." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #00A6E2;
+      --blue-dark: #008bbf;
+      --blue-light: #e6f7fd;
+      --blue-border: #b3e4f7;
+      --slate: #4F677A;
+      --slate-light: #f4f6f8;
+      --text: #1a1a1a;
+      --text-secondary: #6b7280;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      color: var(--text);
+      background: #fff;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════════════════════════
+       NAVIGATION
+    ═══════════════════════════════════════ */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid #eee;
+      padding: 0 24px;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-size: 17px; font-weight: 800; color: var(--text);
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--blue); }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: 14px; font-weight: 600; color: var(--text-secondary);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-cta {
+      background: var(--blue); color: #fff !important; padding: 8px 18px;
+      border-radius: 8px; font-weight: 700; font-size: 13px;
+      transition: background 0.2s;
+    }
+    .nav-cta:hover { background: var(--blue-dark); color: #fff !important; }
+
+    /* ═══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      padding: 140px 24px 80px;
+      text-align: center;
+      background: linear-gradient(180deg, var(--blue-light) 0%, #fff 100%);
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #fff; border: 1.5px solid var(--blue-border);
+      padding: 6px 16px; border-radius: 20px;
+      font-size: 13px; font-weight: 600; color: var(--blue);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900; letter-spacing: -1.5px;
+      line-height: 1.1; margin-bottom: 20px;
+      color: var(--text);
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--blue), #0077b6);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(16px, 2.2vw, 20px);
+      color: var(--slate); max-width: 640px;
+      margin: 0 auto 36px; line-height: 1.55;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--blue); color: #fff;
+      padding: 14px 32px; border-radius: 10px;
+      font-size: 16px; font-weight: 700;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .hero-cta:hover { background: var(--blue-dark); }
+
+    /* ═══════════════════════════════════════
+       SECTION DEFAULTS
+    ═══════════════════════════════════════ */
+    section { padding: 80px 24px; }
+    .section-inner { max-width: 900px; margin: 0 auto; }
+    .section-label {
+      display: inline-block; font-size: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--blue); margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3.5vw, 36px);
+      font-weight: 800; letter-spacing: -0.8px;
+      margin-bottom: 20px; line-height: 1.2;
+    }
+    .section-body {
+      font-size: 16px; color: var(--slate); line-height: 1.7;
+      max-width: 720px;
+    }
+
+    /* ═══════════════════════════════════════
+       OUTWARD MINDSET SECTION
+    ═══════════════════════════════════════ */
+    .mindset { background: var(--slate-light); }
+    .mindset-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px; margin-top: 40px;
+    }
+    .mindset-card {
+      background: #fff; border-radius: var(--radius);
+      padding: 28px; box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+    }
+    .mindset-card .mc-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px; margin-bottom: 14px;
+    }
+    .mc-red .mc-icon { background: #fee2e2; }
+    .mc-green .mc-icon { background: #dcfce7; }
+    .mindset-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .mindset-card p { font-size: 14px; color: var(--slate); line-height: 1.6; }
+
+    /* ═══════════════════════════════════════
+       HOW IT WORKS
+    ═══════════════════════════════════════ */
+    .steps-list { margin-top: 40px; display: flex; flex-direction: column; gap: 24px; }
+    .step-item {
+      display: flex; gap: 20px; align-items: flex-start;
+    }
+    .step-num {
+      width: 44px; height: 44px; flex-shrink: 0;
+      background: var(--blue); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800;
+    }
+    .step-text h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .step-text p { font-size: 14px; color: var(--slate); line-height: 1.6; }
+
+    /* ═══════════════════════════════════════
+       EXTENSION PROMO
+    ═══════════════════════════════════════ */
+    .extension-promo {
+      background: linear-gradient(135deg, var(--blue), #0077b6);
+      color: #fff; text-align: center; padding: 60px 24px;
+    }
+    .extension-promo h2 {
+      font-size: clamp(22px, 3vw, 32px); font-weight: 800;
+      margin-bottom: 12px; letter-spacing: -0.5px;
+    }
+    .extension-promo p {
+      font-size: 16px; opacity: 0.9; max-width: 560px;
+      margin: 0 auto 24px; line-height: 1.6;
+    }
+    .extension-promo a {
+      display: inline-block; background: #fff; color: var(--blue);
+      padding: 12px 28px; border-radius: 8px;
+      font-size: 14px; font-weight: 700; text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .extension-promo a:hover { transform: translateY(-2px); }
+
+    /* ═══════════════════════════════════════
+       TOOL EMBED
+    ═══════════════════════════════════════ */
+    .tool-section {
+      background: var(--slate-light);
+      padding: 80px 24px;
+    }
+    .tool-wrapper {
+      max-width: 520px; margin: 0 auto;
+      background: #f4f4f6; border-radius: 16px;
+      padding: 24px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* Tool UI — mirrors popup.html styles */
+    .tool-header { margin-bottom: 12px; }
+    .tool-header h2 { font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+    .tool-header p { color: var(--text-secondary); margin-top: 4px; font-size: 12px; line-height: 1.4; }
+
+    .tab-bar {
+      display: flex; gap: 0; margin-bottom: 14px;
+      background: #e2e2e8; border-radius: 10px; padding: 3px;
+    }
+    .tab-btn {
+      flex: 1; padding: 8px 0; font-size: 13px; font-weight: 700;
+      border: none; border-radius: 8px; cursor: pointer;
+      background: transparent; color: var(--text-secondary); transition: all 0.18s;
+      font-family: inherit;
+    }
+    .tab-btn.active { background: #fff; color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    .card {
+      background: #fff; border-radius: var(--radius);
+      padding: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.07);
+      margin-bottom: 12px;
+    }
+
+    .input-label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #111; }
+
+    .tool-wrapper textarea {
+      width: 100%; border: 1.5px solid #e2e2e8; border-radius: 8px;
+      padding: 10px; font-size: 12.5px; font-family: inherit;
+      line-height: 1.55; color: #333; resize: vertical; transition: border-color 0.18s;
+    }
+    .tool-wrapper textarea:focus { outline: none; border-color: var(--blue); }
+    .tool-wrapper textarea::placeholder { color: #b0b0bc; }
+
+    .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+
+    .grade-btn, .primary-btn {
+      flex: 1; background: var(--blue); color: #fff; border: none;
+      border-radius: 8px; padding: 10px; font-size: 13px;
+      font-weight: 700; cursor: pointer; transition: background 0.18s;
+      font-family: inherit;
+    }
+    .grade-btn:hover, .primary-btn:hover { background: var(--blue-dark); }
+
+    /* Results */
+    #resultsCard { display: none; }
+
+    .grade-row {
+      display: flex; align-items: center; gap: 14px;
+      padding-bottom: 14px; border-bottom: 1px solid #f0f0f0; margin-bottom: 14px;
+    }
+    .grade-circle {
+      width: 60px; height: 60px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 30px; font-weight: 900; flex-shrink: 0; letter-spacing: -1px;
+    }
+    .grade-A { background: #dcfce7; color: #16a34a; }
+    .grade-B { background: #d9f99d; color: #4d7c0f; }
+    .grade-C { background: #fef9c3; color: #b45309; }
+    .grade-D { background: #ffedd5; color: #c2410c; }
+    .grade-F { background: #fee2e2; color: #b91c1c; }
+
+    .grade-meta { flex: 1; }
+    .grade-score { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+    .grade-tag { margin-top: 2px; font-size: 11.5px; color: var(--text-secondary); font-weight: 500; }
+
+    .bottom-line {
+      background: var(--blue-light); border-left: 3px solid var(--blue);
+      border-radius: 6px; padding: 10px 12px; margin-bottom: 12px;
+      font-size: 12px; line-height: 1.55; color: var(--slate); font-weight: 500;
+    }
+    .bottom-line strong { display: block; margin-bottom: 3px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate); }
+
+    /* Coaching Chat */
+    .coach-chat { margin-bottom: 4px; }
+    .coach-chat-title { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #111; }
+    .coach-chat-hint { font-size: 11px; color: var(--text-secondary); margin-bottom: 10px; line-height: 1.4; }
+    .chat-messages { max-height: 250px; overflow-y: auto; margin-bottom: 8px; }
+    .chat-msg { padding: 8px 10px; border-radius: 8px; margin-bottom: 6px; font-size: 12px; line-height: 1.55; max-width: 92%; }
+    .chat-msg-user { background: #eff6ff; border: 1px solid #bfdbfe; color: #1e3a5f; margin-left: auto; }
+    .chat-msg-coach { background: var(--blue-light); border: 1px solid var(--blue-border); color: var(--slate); }
+    .chat-input-row { display: flex; gap: 6px; }
+    .chat-input {
+      flex: 1; border: 1.5px solid #e2e2e8; border-radius: 8px;
+      padding: 8px 10px; font-size: 12px; font-family: inherit; resize: none;
+      min-height: 36px; max-height: 80px;
+    }
+    .chat-input:focus { outline: none; border-color: var(--blue); }
+    .chat-send-btn {
+      background: var(--blue); color: #fff; border: none; border-radius: 8px;
+      padding: 0 12px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+    }
+    .chat-send-btn:hover { background: var(--blue-dark); }
+
+    /* Feedback sections */
+    .feedback-section-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--text-secondary); margin: 14px 0 6px;
+    }
+    .feedback-item { border-radius: 8px; margin-bottom: 6px; font-size: 12px; line-height: 1.55; overflow: hidden; }
+    .fi-issue { background: #fff1f2; border: 1px solid #fecdd3; }
+    .fi-coach { background: #fffbeb; border: 1px solid #fde68a; }
+    .fi-good  { background: #f0fdf4; border: 1px solid #bbf7d0; }
+
+    .fi-header {
+      display: flex; align-items: center; gap: 6px;
+      padding: 10px 12px; cursor: pointer; user-select: none;
+    }
+    .fi-header:hover { filter: brightness(0.97); }
+    .fi-icon { font-size: 13px; line-height: 1; flex-shrink: 0; }
+    .fi-title { font-weight: 700; font-size: 12px; flex: 1; }
+    .fi-caret { font-size: 14px; color: #999; transition: transform 0.2s; flex-shrink: 0; }
+    .fi-header.open .fi-caret { transform: rotate(90deg); }
+
+    .fi-details { display: none; padding: 0 12px 12px; }
+    .fi-details.open { display: block; }
+    .fi-body { color: #444; margin-bottom: 8px; font-size: 12px; }
+
+    .fi-found {
+      background: #fef2f2; border-left: 3px solid #ef4444; border-radius: 0 6px 6px 0;
+      padding: 6px 10px; margin: 8px 0; font-size: 11.5px; color: #7f1d1d; font-style: italic;
+    }
+    .fi-found-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #991b1b; margin-bottom: 2px; font-style: normal; }
+
+    .fi-example { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+    .fi-before, .fi-after { border-radius: 6px; padding: 8px 10px; font-size: 11.5px; line-height: 1.45; }
+    .fi-before { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+    .fi-after { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .fi-ex-label { font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; display: block; }
+    .fi-before .fi-ex-label { color: #dc2626; }
+    .fi-after  .fi-ex-label { color: #16a34a; }
+
+    .option-row { display: flex; align-items: flex-start; gap: 8px; margin-top: 8px; }
+    .option-row input[type="checkbox"] { margin-top: 2px; width: 16px; height: 16px; accent-color: var(--blue); cursor: pointer; flex-shrink: 0; }
+    .option-label { font-size: 12px; color: #444; line-height: 1.4; cursor: pointer; }
+    .option-label strong { color: #1a1a1a; }
+
+    .reset-btn {
+      margin-top: 14px; width: 100%; background: transparent;
+      border: 1.5px solid var(--blue); color: var(--blue); border-radius: 8px;
+      padding: 9px; font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+    }
+    .reset-btn:hover { background: var(--blue); color: #fff; }
+
+    .status-msg { font-size: 11px; color: var(--text-secondary); text-align: center; margin-top: 6px; min-height: 16px; }
+
+    /* Write tab */
+    .context-fields { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+    .ctx-field { display: flex; flex-direction: column; gap: 3px; }
+    .ctx-label { font-size: 11px; font-weight: 700; color: var(--slate); text-transform: uppercase; letter-spacing: 0.04em; }
+    .ctx-input {
+      border: 1.5px solid #e2e2e8; border-radius: 6px; padding: 7px 10px;
+      font-size: 12px; font-family: inherit; color: #333; transition: border-color 0.18s;
+    }
+    .ctx-input:focus { outline: none; border-color: var(--blue); }
+    .ctx-input::placeholder { color: #b0b0bc; }
+    #writeArea { height: 180px; }
+
+    .live-tips { margin-top: 12px; }
+    .live-tips-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-secondary); margin-bottom: 8px; }
+    .tip-item {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 8px 10px; border-radius: 8px; margin-bottom: 6px;
+      font-size: 12px; line-height: 1.5; transition: opacity 0.2s;
+    }
+    .tip-good { background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+    .tip-warn { background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+    .tip-bad  { background: #fff1f2; border: 1px solid #fecdd3; color: #991b1b; }
+    .tip-info { background: var(--blue-light); border: 1px solid var(--blue-border); color: var(--slate); }
+    .tip-icon { font-size: 14px; flex-shrink: 0; line-height: 1.3; }
+    .tip-content { flex: 1; }
+    .tip-title { font-weight: 700; font-size: 12px; }
+    .tip-text { font-size: 11.5px; color: #555; margin-top: 2px; }
+    .write-placeholder { text-align: center; padding: 20px 16px; color: #b0b0bc; font-size: 12px; line-height: 1.5; }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer {
+      background: var(--text); color: rgba(255,255,255,0.5);
+      text-align: center; padding: 40px 24px;
+      font-size: 13px; line-height: 1.6;
+    }
+    .footer a { color: var(--blue); text-decoration: none; }
+
+    /* ═══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hero { padding: 110px 20px 60px; }
+      section { padding: 60px 20px; }
+      .tool-wrapper { padding: 16px; }
+      .fi-example { grid-template-columns: 1fr; }
+      .mindset-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════ NAVIGATION ═══════════════ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <div class="nav-logo"><span>Outward</span> Sales Email Coach</div>
+      <div class="nav-links">
+        <a href="#mindset">The Approach</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#tool" class="nav-cta">Try It Free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero">
+    <div class="hero-badge">Free tool — no signup required</div>
+    <h1>Write emails people<br><em>actually want to read</em></h1>
+    <p class="hero-sub">
+      Most sales emails get deleted in seconds because they're about the sender, not the reader. This tool coaches you to write emails that center on the person you're reaching out to — their challenges, their goals, their world.
+    </p>
+    <a href="#tool" class="hero-cta">Start Writing</a>
+  </section>
+
+  <!-- ═══════════════ OUTWARD MINDSET ═══════════════ -->
+  <section class="mindset" id="mindset">
+    <div class="section-inner">
+      <span class="section-label">The Approach</span>
+      <h2 class="section-title">What makes an outward email different?</h2>
+      <p class="section-body">
+        An outward mindset means seeing the people you email as real human beings with their own needs, challenges, and objectives — not as targets on a list. When your email reflects that, everything changes: open rates go up, replies feel genuine, and conversations start from a place of trust.
+      </p>
+
+      <div class="mindset-grid">
+        <div class="mindset-card mc-red">
+          <div class="mc-icon">&#x1F6AB;</div>
+          <h3>Inward emails sound like this</h3>
+          <p>"We offer a cutting-edge platform that helps companies leverage synergies..." — It's all about you, your product, and what you want to sell. The reader is a prop in your story.</p>
+        </div>
+        <div class="mindset-card mc-green">
+          <div class="mc-icon">&#x2705;</div>
+          <h3>Outward emails sound like this</h3>
+          <p>"I noticed your team is growing fast across 12 locations — that kind of expansion usually surfaces leadership challenges that are hard to solve with training alone..." — It's about them.</p>
+        </div>
+        <div class="mindset-card mc-red">
+          <div class="mc-icon">&#x1F6AB;</div>
+          <h3>Inward emails close like this</h3>
+          <p>"Would you be open to a quick 15-minute call?" — Hedging, apologetic, and making the reader do all the work. You don't sound like you believe in what you're offering.</p>
+        </div>
+        <div class="mindset-card mc-green">
+          <div class="mc-icon">&#x2705;</div>
+          <h3>Outward emails close like this</h3>
+          <p>"What's the outcome your leadership team needs to deliver this year? Let's schedule 15 minutes next week to talk through it." — Direct, confident, and centered on their world.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+  <section id="how-it-works">
+    <div class="section-inner">
+      <span class="section-label">How It Works</span>
+      <h2 class="section-title">Two ways to use this tool</h2>
+      <p class="section-body">Whether you're writing from scratch or reviewing a finished draft, the coach has you covered.</p>
+
+      <div class="steps-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <h3>Write with live coaching</h3>
+            <p>Use the Write tab to compose your email with real-time tips as you type. Fill in who you're writing to, what outcome you want, and what their job to be done is — the coach adapts its suggestions to your specific situation.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <h3>Grade a finished email</h3>
+            <p>Switch to the Grade tab and paste any email to get an instant score (A through F) with detailed feedback on what's working, what's not, and exactly how to fix it. Each issue includes before/after examples specific to your email.</p>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-text">
+            <h3>Coach through the fixes</h3>
+            <p>After grading, use the coaching chat to work through issues interactively. Say "help me fix the opener" or "help me sound more like myself" and the coach walks you through it step by step.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ EXTENSION PROMO ═══════════════ -->
+  <div class="extension-promo">
+    <h2>Want coaching inside Outlook and Gong?</h2>
+    <p>Install the free Chrome extension to get the same live coaching and grading right inside your email compose window.</p>
+    <a href="#tool">Try the web version first</a>
+  </div>
+
+  <!-- ═══════════════ TOOL EMBED ═══════════════ -->
+  <section class="tool-section" id="tool">
+    <div class="section-inner" style="text-align:center; margin-bottom: 32px;">
+      <span class="section-label">Try It Now</span>
+      <h2 class="section-title">Paste an email or write one from scratch</h2>
+    </div>
+    <div class="tool-wrapper">
+      <div class="tool-header">
+        <h2>Outward Sales Email Coach</h2>
+      </div>
+
+      <div class="tab-bar">
+        <button class="tab-btn active" data-tab="write">Write</button>
+        <button class="tab-btn" data-tab="grade">Grade</button>
+      </div>
+
+      <!-- WRITE TAB -->
+      <div class="tab-panel active" id="tab-write">
+        <div class="card">
+          <div class="context-fields">
+            <div class="ctx-field">
+              <label class="ctx-label" for="ctxWho">Who is this for?</label>
+              <input class="ctx-input" id="ctxWho" type="text" placeholder="Name, role, company (e.g. Sarah Chen, VP of L&D at Acme)" />
+            </div>
+            <div class="ctx-field">
+              <label class="ctx-label" for="ctxGoal">What outcome do you want?</label>
+              <input class="ctx-input" id="ctxGoal" type="text" placeholder="e.g. Schedule a discovery call about their leadership program" />
+            </div>
+            <div class="ctx-field">
+              <label class="ctx-label" for="ctxJtbd">What's their job to be done?</label>
+              <input class="ctx-input" id="ctxJtbd" type="text" placeholder="e.g. They need to reduce manager turnover across 12 locations" />
+            </div>
+          </div>
+          <label class="input-label" for="writeArea">Write your email</label>
+          <textarea id="writeArea" placeholder="Start typing your email here. Coaching tips will appear below as you write..."></textarea>
+          <div class="btn-row">
+            <button class="primary-btn" id="sendToGradeBtn">Grade It</button>
+          </div>
+          <div class="status-msg" id="writeStatusMsg"></div>
+        </div>
+        <div class="live-tips" id="liveTips">
+          <div class="live-tips-title">Live Coaching</div>
+          <div id="tipsList">
+            <div class="write-placeholder">Start writing above and coaching tips will appear here in real time.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GRADE TAB -->
+      <div class="tab-panel" id="tab-grade">
+        <div class="card" id="inputCard">
+          <label class="input-label" for="emailInput">Your email</label>
+          <textarea id="emailInput" style="height:140px;" placeholder="Paste your email here to get an instant grade with coaching feedback..."></textarea>
+          <div class="option-row">
+            <input type="checkbox" id="custCheck" />
+            <label class="option-label" for="custCheck"><strong>I added customization</strong> (specific details about this contact or account)</label>
+          </div>
+          <div class="btn-row">
+            <button class="grade-btn" id="gradeBtn">Grade My Email</button>
+          </div>
+          <div class="status-msg" id="statusMsg"></div>
+        </div>
+
+        <div class="card" id="resultsCard">
+          <div class="grade-row">
+            <div class="grade-circle" id="gradeCircle"></div>
+            <div class="grade-meta">
+              <div class="grade-score" id="gradeScore"></div>
+              <div class="grade-tag" id="gradeTag"></div>
+            </div>
+          </div>
+          <div class="bottom-line" id="bottomLine"></div>
+
+          <div class="coach-chat" id="coachChat">
+            <div class="coach-chat-title">Coaching Chat</div>
+            <div class="coach-chat-hint">Say "help me fix the opener" or "help me add customization" and I'll coach you through it.</div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input-row">
+              <textarea class="chat-input" id="chatInput" placeholder="Try: 'Help me fix the opener'..." rows="1"></textarea>
+              <button class="chat-send-btn" id="chatSendBtn">Send</button>
+            </div>
+          </div>
+
+          <div id="feedbackList"></div>
+          <button class="reset-btn" id="resetBtn">Grade Another Email</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <p>Outward Sales Email Coach &mdash; built on the outward mindset approach.<br>
+    No data is stored. Everything runs in your browser.</p>
+  </footer>
+
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script src="grader.js"></script>
+  <script>
+    // ── Utility ──
+    function esc(s) {
+      var d = document.createElement('div');
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    // ══════════════════════════════════════════════════════
+    //  TAB SWITCHING
+    // ══════════════════════════════════════════════════════
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var target = btn.getAttribute('data-tab');
+        document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+        document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+        btn.classList.add('active');
+        document.getElementById('tab-' + target).classList.add('active');
+      });
+    });
+
+    // ══════════════════════════════════════════════════════
+    //  WRITE TAB: Live Coaching
+    // ══════════════════════════════════════════════════════
+    var liveCoachTimer = null;
+
+    document.getElementById('writeArea').addEventListener('input', function() {
+      clearTimeout(liveCoachTimer);
+      liveCoachTimer = setTimeout(runLiveCoach, 800);
+    });
+
+    ['ctxWho', 'ctxGoal', 'ctxJtbd'].forEach(function(id) {
+      document.getElementById(id).addEventListener('input', function() {
+        clearTimeout(liveCoachTimer);
+        liveCoachTimer = setTimeout(runLiveCoach, 600);
+      });
+    });
+
+    function runLiveCoach() {
+      var text = document.getElementById('writeArea').value.trim();
+      var context = {
+        who: document.getElementById('ctxWho').value.trim(),
+        goal: document.getElementById('ctxGoal').value.trim(),
+        jtbd: document.getElementById('ctxJtbd').value.trim()
+      };
+
+      var tipsList = document.getElementById('tipsList');
+
+      if (!text || text.length < 15) {
+        tipsList.innerHTML = '<div class="write-placeholder">Start writing above and coaching tips will appear here in real time.</div>';
+        return;
+      }
+
+      var tips = liveCoach(text, context);
+      tipsList.innerHTML = '';
+
+      tips.forEach(function(tip) {
+        var cls = 'tip-info';
+        if (tip.icon === '\u2705') cls = 'tip-good';
+        else if (tip.icon === '\u26A0\uFE0F' || tip.icon === '\uD83D\uDCA1' || tip.icon === '\uD83E\uDD16') cls = 'tip-warn';
+        else if (tip.icon === '\uD83D\uDEA8') cls = 'tip-bad';
+
+        var div = document.createElement('div');
+        div.className = 'tip-item ' + cls;
+        div.innerHTML = '<span class="tip-icon">' + tip.icon + '</span>' +
+          '<div class="tip-content"><div class="tip-title">' + esc(tip.title) + '</div>' +
+          '<div class="tip-text">' + esc(tip.tip) + '</div></div>';
+        tipsList.appendChild(div);
+      });
+
+      if (tips.length === 0) {
+        tipsList.innerHTML = '<div class="write-placeholder">Looking good so far. Keep writing!</div>';
+      }
+    }
+
+    // ── "Grade It" button ──
+    document.getElementById('sendToGradeBtn').addEventListener('click', function() {
+      var text = document.getElementById('writeArea').value.trim();
+      if (!text || text.length < 15) {
+        document.getElementById('writeStatusMsg').textContent = 'Write a bit more before grading.';
+        return;
+      }
+      document.getElementById('emailInput').value = text;
+
+      document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+      document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+      document.querySelector('.tab-btn[data-tab="grade"]').classList.add('active');
+      document.getElementById('tab-grade').classList.add('active');
+
+      var gradeCustomization = document.getElementById('custCheck').checked;
+      originalEmail = text;
+      lastResults = analyzeEmail(text, gradeCustomization);
+      renderResults(lastResults);
+    });
+
+    // ══════════════════════════════════════════════════════
+    //  GRADE TAB: Grade button
+    // ══════════════════════════════════════════════════════
+    document.getElementById('gradeBtn').addEventListener('click', function() {
+      var text = document.getElementById('emailInput').value.trim();
+      if (!text || text.length < 15) {
+        document.getElementById('statusMsg').textContent = 'Please paste an email first.';
+        return;
+      }
+      var gradeCustomization = document.getElementById('custCheck').checked;
+      originalEmail = text;
+      lastResults = analyzeEmail(text, gradeCustomization);
+      renderResults(lastResults);
+    });
+
+    // ── Chat send ──
+    document.getElementById('chatSendBtn').addEventListener('click', sendChat);
+    document.getElementById('chatInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+    });
+
+    function sendChat() {
+      var input = document.getElementById('chatInput');
+      var msg = input.value.trim();
+      if (!msg) return;
+      input.value = '';
+      addChatMsg(msg, 'user');
+
+      if (activeFlow) {
+        var steps = getFlowSteps(activeFlow);
+        if (flowStep < steps.length && steps[flowStep].key) {
+          flowData[steps[flowStep].key] = msg;
+          flowStep++;
+        }
+        if (flowStep < steps.length) {
+          var nextStep = steps[flowStep];
+          if (nextStep.ask && nextStep.ask.indexOf('_generate_') === 0) {
+            var result = generateFlowResult();
+            clearFlow();
+            addChatMsg(result, 'coach');
+          } else {
+            var askText = nextStep.ask;
+            if (flowData.name) {
+              askText = askText.replace(/this person/g, flowData.name).replace(/them\b/g, flowData.name);
+            }
+            addChatMsg(askText, 'coach');
+          }
+        } else {
+          clearFlow();
+          addChatMsg('Paste your revised email here and I\'ll re-grade it to see how you improved.', 'coach');
+        }
+        return;
+      }
+
+      var wordCount = msg.split(/\s+/).length;
+      if (wordCount > 40) {
+        var gradeCustomization = document.getElementById('custCheck').checked;
+        var newResults = analyzeEmail(msg, gradeCustomization);
+        var oldScore = lastResults ? lastResults.score : 0;
+        var diff = newResults.score - oldScore;
+        var response = 'Re-graded your revision: **' + newResults.grade + ' (' + newResults.score + '/100)**';
+        if (diff > 0) response += ' \u2014 that is ' + diff + ' points better! ';
+        else if (diff < 0) response += ' \u2014 that dropped ' + Math.abs(diff) + ' points. ';
+        else response += ' \u2014 same score. ';
+        if (newResults.issues.length > 0) {
+          response += 'Still flagged: ' + newResults.issues.map(function(i) { return i.title; }).join('; ') + '. Want help fixing one?';
+        } else if (newResults.coaching.length > 0) {
+          response += 'No major issues! Minor coaching: ' + newResults.coaching.map(function(c) { return c.title; }).join('; ') + '. ';
+        } else {
+          response += 'Excellent \u2014 no issues. This reads like a real person who genuinely cares.';
+        }
+        originalEmail = msg;
+        lastResults = newResults;
+        renderResults(newResults);
+        addChatMsg(response, 'coach');
+        return;
+      }
+
+      var q = msg.toLowerCase();
+      var wantsHelp = q.match(/help|fix|improve|rewrite|redo|work on|coach me|walk me/);
+      if (wantsHelp && q.match(/open(ing|er)|first (line|sentence)|start|begin/)) { activeFlow = 'opener'; flowStep = 0; flowData = {}; addChatMsg(getFlowSteps('opener')[0].ask, 'coach'); return; }
+      if (wantsHelp && q.match(/custom|specific|personali|research|salesforce/)) { activeFlow = 'custom'; flowStep = 0; flowData = {}; addChatMsg(getFlowSteps('custom')[0].ask, 'coach'); return; }
+      if (wantsHelp && q.match(/cta|call to action|next step|clos(e|ing)|ask|end|meeting/)) { activeFlow = 'cta'; flowStep = 0; flowData = {}; addChatMsg(getFlowSteps('cta')[0].ask, 'coach'); return; }
+      if (wantsHelp && q.match(/passive|apolog|hedge|weak|sorry|direct|confident/)) { activeFlow = 'passive'; flowStep = 0; flowData = {}; addChatMsg(getFlowSteps('passive')[0].ask, 'coach'); return; }
+      if (wantsHelp && q.match(/voice|personal|sound like me|ai|template|chatgpt|robot|myself/)) { activeFlow = 'voice'; flowStep = 0; flowData = {}; addChatMsg(getFlowSteps('voice')[0].ask, 'coach'); return; }
+      if (wantsHelp && q.match(/distanc|group|impersonal|hedg|role|rep /)) { activeFlow = 'distancing'; flowStep = 0; flowData = {}; addChatMsg(getFlowSteps('distancing')[0].ask, 'coach'); return; }
+      if (wantsHelp && q.match(/we |we\/|ratio|focus|too much we|about us/)) { activeFlow = 'we'; flowStep = 0; flowData = {}; addChatMsg(getFlowSteps('we')[0].ask, 'coach'); return; }
+
+      addChatMsg(generateQuickResponse(q), 'coach');
+    }
+
+    // ── Render results ──
+    function renderResults(r) {
+      var circle = document.getElementById('gradeCircle');
+      circle.textContent = r.grade;
+      circle.className = 'grade-circle grade-' + r.grade;
+      document.getElementById('gradeScore').textContent = r.score + ' / 100';
+      document.getElementById('gradeTag').textContent = r.tag;
+      document.getElementById('bottomLine').innerHTML = '<strong>Bottom Line</strong>' + esc(r.bottomLine);
+
+      var list = document.getElementById('feedbackList');
+      list.innerHTML = '';
+
+      if (r.issues.length > 0) {
+        var h = document.createElement('div'); h.className = 'feedback-section-title'; h.textContent = 'Issues (' + r.issues.length + ')'; list.appendChild(h);
+        r.issues.forEach(function(item) { list.appendChild(makeCard('fi-issue', '\uD83D\uDEA8', item)); });
+      }
+      if (r.coaching.length > 0) {
+        var h = document.createElement('div'); h.className = 'feedback-section-title'; h.textContent = 'Coaching (' + r.coaching.length + ')'; list.appendChild(h);
+        r.coaching.forEach(function(item) { list.appendChild(makeCard('fi-coach', '\uD83D\uDCA1', item)); });
+      }
+      if (r.goods.length > 0) {
+        var h = document.createElement('div'); h.className = 'feedback-section-title'; h.textContent = 'What you did well (' + r.goods.length + ')'; list.appendChild(h);
+        r.goods.forEach(function(item) { list.appendChild(makeCard('fi-good', '\u2705', item)); });
+      }
+
+      document.getElementById('inputCard').style.display = 'none';
+      document.getElementById('resultsCard').style.display = 'block';
+    }
+
+    function makeCard(cls, icon, item) {
+      var div = document.createElement('div');
+      div.className = 'feedback-item ' + cls;
+      var header = document.createElement('div');
+      header.className = 'fi-header';
+      header.innerHTML = '<span class="fi-icon">' + icon + '</span><span class="fi-title">' + esc(item.title) + '</span><span class="fi-caret">&#9656;</span>';
+      header.addEventListener('click', function() {
+        this.classList.toggle('open');
+        this.nextElementSibling.classList.toggle('open');
+      });
+      div.appendChild(header);
+
+      var details = document.createElement('div');
+      details.className = 'fi-details';
+      var html = '';
+      if (item.body) html += '<p class="fi-body">' + esc(item.body) + '</p>';
+      if (item.found) html += '<div class="fi-found"><div class="fi-found-label">In your email:</div>' + esc(item.found) + '</div>';
+      if (item.before || item.after) {
+        html += '<div class="fi-example">';
+        if (item.before) html += '<div class="fi-before"><span class="fi-ex-label">Instead of:</span>' + esc(item.before) + '</div>';
+        if (item.after) html += '<div class="fi-after"><span class="fi-ex-label">Try something like:</span>' + esc(item.after) + '</div>';
+        html += '</div>';
+      }
+      details.innerHTML = html;
+      div.appendChild(details);
+      return div;
+    }
+
+    function addChatMsg(text, type) {
+      var container = document.getElementById('chatMessages');
+      var div = document.createElement('div');
+      div.className = 'chat-msg chat-msg-' + type;
+      div.innerHTML = esc(text)
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>');
+      container.appendChild(div);
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // ── Reset ──
+    document.getElementById('resetBtn').addEventListener('click', function() {
+      document.getElementById('emailInput').value = '';
+      document.getElementById('inputCard').style.display = 'block';
+      document.getElementById('resultsCard').style.display = 'none';
+      document.getElementById('chatMessages').innerHTML = '';
+      document.getElementById('statusMsg').textContent = '';
+      lastResults = null;
+      originalEmail = '';
+      clearFlow();
+    });
+
+    // ── Smooth scroll for anchor links ──
+    document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>
