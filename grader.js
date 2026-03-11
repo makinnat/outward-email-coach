@@ -520,11 +520,12 @@ function analyzeEmail(email, gradeCustomization) {
     /worth a (quick )?(call|conversation|chat)/i,
     /open to (a quick )?(call|chat|conversation)/i,
     /curious if (this|it)/i,
-    /\b15[- ]?min(ute)?\b/i, /\b20[- ]?min(ute)?\b/i, /\b30[- ]?min(ute)?\b/i,
+    /\b15[- ]?min(ute)?s?\b/i, /\b20[- ]?min(ute)?s?\b/i, /\b30[- ]?min(ute)?s?\b/i,
     /quick call/i, /quick chat/i, /short call/i,
     /can (we|i) (set up|schedule|find|grab)/i,
-    /let's (schedule|set up|find time|grab|block|hop on|jump on|connect)/i,
-    /i('d| would) like to (set up|schedule|find time|grab)/i,
+    /let's (schedule|set up|find time|find \d+|grab|block|hop on|jump on|connect|explore)/i,
+    /i('d| would) like to (set up|schedule|find time|find \d+|grab)/i,
+    /i('d| would) (genuinely |really )?like to (hear|find|set up|schedule|grab)/i,
     /does (this|that|it) (resonate|sound|make sense)/i,
     /what (day|time|does your|would) /i,
     /are you (free|available|around)/i,
@@ -542,6 +543,43 @@ function analyzeEmail(email, gradeCustomization) {
     /(through|via|using) (the|this) link/i,
     /send me (the |your )?(email|contact|name|info)/i,
     /I('ll| will) get (you|your|the|them) (signed up|registered|enrolled|added)/i,
+    // Calendar / booking link CTAs
+    /link to my calendar/i,
+    /book (time|a time|a meeting|a call|a slot|a spot|with me)/i,
+    /book time with/i,
+    /find a time/i,
+    /grab a time/i,
+    /pick a time/i,
+    /here('s| is) (a |my )?(link|calendar|booking|availability)/i,
+    /schedule (a |some )?time (with|on|through|via)/i,
+    /my (calendar|booking|availability) (link|page|below|here|above)/i,
+    /calendly/i, /hubspot.*meeting/i,
+    // Direct time-ask patterns (e.g., "let's find 20 minutes")
+    /let's find \d+ min/i,
+    /i'd like to find \d+ min/i,
+    /\bcalendar\b/i,
+    // Meeting invitations phrased as offers (not direct asks)
+    /carve out time to (meet|talk|chat|connect|discuss)/i,
+    /i('d| would) welcome (that|the (chance|opportunity)|a (call|conversation|chat|meeting))/i,
+    /i('d| would) (love|enjoy|appreciate) (that|the (chance|opportunity)|a (call|conversation|chat|meeting))/i,
+    /(meet|connect|talk|chat) (one another|each other|with each other|with one another)/i,
+    /use this link/i,
+    /use (the|this|my) (link|calendar|booking)/i,
+    /time that works (best |well )?(for you|for your)/i,
+    /time.{0,20}works.{0,10}for you/i,
+    // Common scheduling tool URLs embedded in emails
+    /meetings\.hubspot\.com/i,
+    /outlook\.office365\.com.*booking/i,
+    /acuityscheduling/i, /savvycal/i, /cal\.com/i, /doodle\.com/i,
+    // Event / conference meetup asks
+    /connect in person/i,
+    /meet (up )?(in person|face to face)/i,
+    /meet (up |you )?(at|during|before|after) (the |a )?(conference|event|summit|convention|expo|atd|workshop)/i,
+    /connect (at|during|before|after) (the |a )?(conference|event|summit|convention|expo|atd|workshop)/i,
+    /stop by (our|the|my) (booth|session|talk|presentation|workshop)/i,
+    /see you (at|there|during)/i,
+    /catch up (at|during|before|after)/i,
+    /grab (coffee|lunch|a drink|breakfast|dinner) (at|during|before|after)/i,
   ];
   const hardCTA = [
     /\bbuy now\b/i, /\bsign up (today|now)\b/i, /\bget started today\b/i,
@@ -550,26 +588,59 @@ function analyzeEmail(email, gradeCustomization) {
 
   // Detect questions in the email (especially near the end)
   const allQuestions = email.match(/[^.!?\n][^.!?\n]*\?/g) || [];
-  const lastThirdStart = Math.floor(email.length * 0.6);
-  const lastThird = email.substring(lastThirdStart);
-  const endQuestions = lastThird.match(/[^.!?\n][^.!?\n]*\?/g) || [];
+
+  // For short emails (<120 words), search the whole email for questions;
+  // otherwise search the last 50% (more generous than 40%)
+  const questionSearchStart = wordCount < 120 ? 0 : Math.floor(email.length * 0.5);
+  const questionSearchZone = email.substring(questionSearchStart);
+  const endQuestions = questionSearchZone.match(/[^.!?\n][^.!?\n]*\?/g) || [];
 
   // Engagement questions that prompt a response
   const engagementQuestionPatterns = [
     /what (is|are|would|do|does|has|have|challenges|keeps)/i,
-    /how (is|are|do|does|would|has|have|did)/i,
+    /what('s|s) (the|your|one|a |that )/i,
+    /what (if |pattern |dynamic |challenge |outcome |people |team |situation )/i,
+    /how (is|are|do|does|would|has|have|did|can|could|about)/i,
+    /how did (you|your|they|the)/i,
     /where (is|are|do|does)/i,
+    /when('s| is| was| did) (the |your |the last )/i,
     /have you (ever|thought|considered|experienced|tried|seen)/i,
+    /did you (stay|get|notice|see|feel|think|try|find|ever)/i,
     /does (this|that) (resonate|sound|ring true|apply)/i,
     /is (this|that|it) (something|relevant|a priority|on your radar)/i,
     /can (we|i) /i,
     /would (you|it|that|this) /i,
     /do you (think|see|have|know|find)/i,
+    /will you (be |be at |attend |come to |join |make it)/i,
+    /are you (going|attending|coming|planning|heading)/i,
+    // Conversational / relationship-building questions
+    /how did you (get|find|hear|learn|discover|become|come|start|end up)/i,
+    /what (got|gets|brought|brings|drew|drives|made|makes) you/i,
+    /what (do|did|would|could) you (think|feel|make|say|suggest|recommend|prefer)/i,
+    /who (is|are|was|did|do|does)/i,
+    /where did (you|your)/i,
+    /when did (you|your)/i,
+    /why (do|did|does|is|are|would)/i,
+    // Event / conference attendance questions
+    /are you (attending|going to|headed to|planning to attend|registered for|signed up for|joining)/i,
+    /will you (be at|be attending|be going to|be joining|make it to)/i,
+    /are you.{0,20}(conference|event|summit|convention|expo|atd|workshop|seminar)/i,
+    /will (i |we )?(see you|catch you) (at|there)/i,
+    /you (going|headed|coming|planning).{0,20}(conference|event|summit|convention|expo|atd|workshop)/i,
   ];
 
-  const hasEngagementQuestion = endQuestions.some(q =>
+  // Check both end-zone questions AND all questions in the email
+  // (a clear engagement question anywhere in a short email counts)
+  const hasEngagementQuestionInEnd = endQuestions.some(q =>
     engagementQuestionPatterns.some(p => p.test(q))
   );
+  const hasEngagementQuestionAnywhere = allQuestions.some(q =>
+    engagementQuestionPatterns.some(p => p.test(q))
+  );
+  // For short emails, any engagement question counts;
+  // for longer emails, prefer end-zone but accept anywhere with reduced weight
+  const hasEngagementQuestion = hasEngagementQuestionInEnd ||
+    (wordCount < 150 && hasEngagementQuestionAnywhere);
 
   const hasSoftCTA = softCTA.some(r => r.test(email));
   const hasHardCTA = hardCTA.some(r => r.test(email));
@@ -1156,9 +1227,32 @@ function liveCoach(text, context) {
       /would (it make sense|you be open|you have time)/i,
       /open to (a quick )?(call|chat|conversation)/i,
       /are you (free|available|around)/i,
+      // Calendar / booking link CTAs
+      /link to my calendar/i,
+      /book (time|a time|a meeting|a call|a slot|a spot|with me)/i,
+      /book time with/i,
+      /find a time/i,
+      /grab a time/i,
+      /pick a time/i,
+      /here('s| is) (a |my )?(link|calendar|booking|availability)/i,
+      /schedule (a |some )?time (with|on|through|via)/i,
+      /my (calendar|booking|availability) (link|page|below|here|above)/i,
+      /calendly/i, /hubspot.*meeting/i,
+      // Meeting invitations phrased as offers
+      /carve out time to (meet|talk|chat|connect|discuss)/i,
+      /i('d| would) welcome (that|the (chance|opportunity)|a (call|conversation|chat|meeting))/i,
+      /(meet|connect|talk|chat) (one another|each other)/i,
+      /use this link/i,
+      /use (the|this|my) (link|calendar|booking)/i,
+      /time that works (best |well )?(for you|for your)/i,
+      /time.{0,20}works.{0,10}for you/i,
+      /meetings\.hubspot\.com/i,
+      /acuityscheduling/i, /savvycal/i, /cal\.com/i, /doodle\.com/i,
     ];
-    const lastThird = text.substring(Math.floor(text.length * 0.6));
-    const endQuestions = lastThird.match(/[^.!?\n][^.!?\n]*\?/g) || [];
+    // For short emails, search the whole email for questions; otherwise last 50%
+    const sidebarWordCount = text.split(/\s+/).length;
+    const questionStart = sidebarWordCount < 120 ? 0 : Math.floor(text.length * 0.5);
+    const endQuestions = text.substring(questionStart).match(/[^.!?\n][^.!?\n]*\?/g) || [];
 
     const hasCTA = liveCTA.some(r => r.test(text));
     const hasQuestion = endQuestions.length > 0;
